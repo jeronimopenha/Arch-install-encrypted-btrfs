@@ -434,6 +434,15 @@ grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg  
 ```
 
+nano /etc/environment
+insert this to archive GTK_IM_MODULE=cedilla
+
+Install this:
+gnome
+gnome-extra
+gnome-shell-extension-appindicator
+gnome-shell-extension-desktop-icons-ng
+
 #### Exit new system
 
 ```bash
