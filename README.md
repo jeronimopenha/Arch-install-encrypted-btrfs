@@ -150,7 +150,7 @@ umount /mnt
 #### If using encryption, change **/dev/sdX2** to **/dev/mapper/MainPart**:
 
 ```bash
-mount -o defaults,noatime,discard,ssd,subvol=@ /dev/sdX2 /mnt  
+mount -o defaults,noatime,ssd,compress=zstd,subvol=@ /dev/sdX2 /mnt  
 
 mkdir /mnt/home  
 
@@ -168,16 +168,28 @@ mkdir /mnt/efi # for EFI partition /dev/sdX1
 #### If using encryption, change **/dev/sdX2** to **/dev/mapper/MainPart**
 
 ```bash
-mount -o defaults,noatime,discard,ssd,subvol=@home /dev/sdX2 /mnt/home
+noatime,ssd,compress=zstd,space_cache=v2,subvolid=256,subvol=/@
+mount -o defaults,noatime,ssd,compress=zstd,subvol=@home /dev/sdX2 /mnt/home
 
-mount -o defaults,noatime,discard,ssd,subvol=@varlog /dev/sdX2 /mnt/var/log
+mount -o defaults,noatime,ssd,nodatacow,subvol=@varlog /dev/sdX2 /mnt/var/log
 
-mount -o defaults,noatime,discard,ssd,subvol=@tmp /dev/sdX2 /mnt/tmp
+mount -o defaults,noatime,ssd,nodatacow,subvol=@tmp /dev/sdX2 /mnt/tmp
 
-mount -o defaults,noatime,discard,ssd,subvol=@snapshots /dev/sdX2 /mnt/snapshots
+mount -o defaults,noatime,ssd,compress=zstd,subvol=@snapshots /dev/sdX2 /mnt/snapshots
 
 mount /dev/sdX1 /mnt/efi
 ```
+
+# Habilitar fstrim.service no systemctl
+para fstab
+```bash
+#swap
+/swap/swapfile  none    swap    sw      0       0
+
+tmpfs /home/jeronimo/tmp/ tmpfs defaults,noatime,size=512M 0 0
+
+```
+
 
 # 3. Install Arch Linux
 
