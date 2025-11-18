@@ -180,7 +180,7 @@ mount -o defaults,noatime,ssd,compress=zstd,subvol=@snapshots /dev/sdX2 /mnt/sna
 mount /dev/sdX1 /mnt/efi
 ```
 
-# Habilitar fstrim.service no systemctl
+Habilitar fstrim.service no systemctl
 para fstab
 ```bash
 #swap
