@@ -189,7 +189,14 @@ para fstab
 tmpfs /home/jeronimo/tmp/ tmpfs defaults,noatime,size=512M 0 0
 
 ```
-
+Para nodatacow:
+```bash
+chattr +C /alguma_pasta
+```
+Para ver os atributos:
+```bash
+lsattr +d /alguma_pasta
+```
 
 # 3. Install Arch Linux
 
