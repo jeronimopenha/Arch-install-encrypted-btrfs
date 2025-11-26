@@ -1,11 +1,4 @@
-Perfeito. Abaixo está o DOCUMENTO OFICIAL DA SUA ARQUITETURA em formato .md, pronto para você salvar como, por exemplo:
-
-arquitetura_servidor.md
-
-
-Você pode versionar isso no Git, guardar no Nextcloud, imprimir, etc.
-
-# 📘 Arquitetura Oficial do Servidor — BTRFS RAID1 + Snapshots + Backup Externo
+# Arquitetura Oficial do Servidor — BTRFS RAID1 + Snapshots + Backup Externo
 
 Autor: Jeronimo  
 Data: 2025  
