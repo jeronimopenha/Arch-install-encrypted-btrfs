@@ -153,13 +153,50 @@ ln -s /backup_dados/Trabalhos   ~/Trabalhos
 
 Esse subvolume será controlado pelo btrbk local.
 
-Política  (relembrando):
+Política :
 
 ```
-Hourly:  24
-Daily:   14
-Weekly:  8
-Monthly: 0 (só local)
+# ==========================================
+# LOG E DEFAULTS
+# ==========================================
+transaction_log        /var/log/btrbk.log
+
+# mínimo que um snapshot fica intocado
+snapshot_preserve_min  2d
+
+# se quiser, dá pra deixar um preserve global bem genérico
+# e sobrescrever por subvolume (como vou fazer abaixo)
+# snapshot_preserve    24h 7d 4w
+
+# por padrão, não forçar retenção mínima em targets
+target_preserve_min    no
+
+# ==========================================
+# HOME (SSD) – snapshots CURTOS
+# 12 hourly, 7 daily, 4 weekly, 0 monthly
+# ==========================================
+subvolume  /home
+  snapshot_dir        /snapshots/home
+  snapshot_preserve   12h 7d 4w
+
+  # Se você quiser que a HOME também vá pro HD externo:
+  target              /mnt/backup/home
+  target_preserve     30d 12w 24m
+
+
+# ==========================================
+# BACKUP LOCAL DE DADOS
+# (subvol onde estão Documentos, Música, Desktop etc.)
+# 24 hourly, 14 daily, 8 weekly, 0 monthly
+# ==========================================
+subvolume  /home/jeronimo/backup_dados/live
+  snapshot_dir        /snapshots/backup_dados
+  snapshot_preserve   24h 14d 8w
+
+  # Cópia "fria" de longo prazo no HD externo
+  target              /mnt/backup/backup_dados
+  target_preserve     30d 12w 24m
+
 ```
 
 ## BACKUP EM HD EXTERNO OCORRER
@@ -167,6 +204,9 @@ Monthly: 0 (só local)
 ```
 
 sudo btrbk -c /etc/btrbk.conf run
+
+sudo systemctl enable --now btrbk.timer
+
 ```
 
 
