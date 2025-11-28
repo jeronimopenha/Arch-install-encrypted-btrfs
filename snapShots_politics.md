@@ -77,12 +77,16 @@ sudo mount -o subvolid=5 /dev/sdXn /mnt/btrfs-root
 1.3) Criar o subvolume de backup
 ```
 sudo btrfs subvolume create /mnt/btrfs-root/@backup_dados
+sudo btrfs subvolume create /mnt/btrfs-root/@backup_dados/live
+sudo btrfs subvolume create /mnt/btrfs-root/@backup_dados/snapshots
 ```
 Resultado:
 ```
 @           → sistema
 @home       → home
 @backup_dados → dados importantes
+@backup_dados/libve → dados vivos
+@backup_dados/snapshots → snapshots e backups
 ```
 
 ## CRIAR O PONTO DE MONTAGEM
