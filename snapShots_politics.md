@@ -172,6 +172,18 @@ snapshot_preserve_min  2d
 target_preserve_min    no
 
 # ==========================================
+# ROOT (SSD) – snapshots CURTOS
+# 6 hourly, 7 daily, 4 weekly, 2 monthly
+# ==========================================
+subvolume  /home
+  snapshot_dir        /snapshots/root
+  snapshot_preserve   6h 7d 4w 2m
+
+  # Se você quiser que a HOME também vá pro HD externo:
+  # target              /mnt/backup/root
+  # target_preserve     30d 12w 24m
+
+# ==========================================
 # HOME (SSD) – snapshots CURTOS
 # 12 hourly, 7 daily, 4 weekly, 0 monthly
 # ==========================================
@@ -206,6 +218,10 @@ subvolume  /home/jeronimo/backup_dados/live
 sudo btrbk -c /etc/btrbk.conf run
 
 sudo systemctl enable --now btrbk.timer
+
+sudo ln -s /snapshots/root /.snapshots
+
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ```
 
